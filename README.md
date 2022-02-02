@@ -1,10 +1,10 @@
 A repo for SEM with Continuous Integration set-up using GitHub Actions
 still not sure what's happening
 
-![workflow](https://github.com/julkaswieta/sem/actions/workflows/main.yml/badge.svg)
+* Master Build Status ![workflow](https://github.com/julkaswieta/sem/actions/workflows/main.yml/badge.svg)
 
-[![LICENSE](https://img.shields.io/github/license/julkaswieta/sem.svg?style=flat-square)](https://github.com/julkaswieta/sem/blob/master/LICENSE)
+* Develop Build Status ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/julkaswieta/sem/A%20workflow%20for%20my%20Hello%20World%20App/develop)
 
-[![Releases](https://img.shields.io/github/release/julkaswieta/sem/all.svg?style=flat-square)](https://github.com/julkaswieta/sem/releases)
+* License  [![LICENSE](https://img.shields.io/github/license/julkaswieta/sem.svg?style=flat-square)](https://github.com/julkaswieta/sem/blob/master/LICENSE)
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/julkaswieta/sem/A%20workflow%20for%20my%20Hello%20World%20App/develop)
+* Release [![Releases](https://img.shields.io/github/release/julkaswieta/sem/all.svg?style=flat-square)](https://github.com/julkaswieta/sem/releases)
