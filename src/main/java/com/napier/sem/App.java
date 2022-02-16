@@ -96,21 +96,37 @@ public class App
         {
             // Create an SQL statement
             Statement stmt = con.createStatement();
+            Statement stmt2 = con.createStatement();    // to get the manager
             // Create string for SQL statement
             String strSelect =
-                    "SELECT emp_no, first_name, last_name, title, salary, departments.dept_name"
-                            + "FROM employees JOIN titles ON (titles.emp_no = employees.emp_no)"
-                                + "JOIN salaries ON (salaries.emp_no = employees.emp_no)"
-                                + "JOIN dept_emp ON (dept_emp.emp_no = employees.emp_no)"
-                                + "JOIN departments ON (departments.emp_no = employees.emp_no)"
-                                + "JOIN dept_manager ON (dept_manager.dept_no = departments.dept_no)"
-                            + "WHERE emp_no = " + ID
-                                + " AND titles.to_date = 9999-01-01";
+                    "SELECT employees.emp_no, first_name, last_name, title, salaries.salary, departments.dept_name"
+                            + " FROM employees JOIN titles ON (titles.emp_no = employees.emp_no)"
+                            + "JOIN salaries ON (salaries.emp_no = employees.emp_no)"
+                            + "JOIN dept_emp ON (dept_emp.emp_no = employees.emp_no)"
+                            + "JOIN departments ON (departments.dept_no = dept_emp.dept_no)"
+                            + "JOIN dept_manager ON (dept_manager.dept_no = departments.dept_no)"
+                            + "WHERE employees.emp_no = " + ID
+                            + " AND titles.to_date = '9999-01-01'"
+                            + "AND salaries.to_date = '9999-01-01'"
+                            + "GROUP BY employees.emp_no, first_name, last_name, title, salaries.salary, departments.dept_name";
+
+            String strSelect2 =
+                    "SELECT first_name, last_name "
+                            + "FROM employees JOIN dept_manager ON employees.emp_no = dept_manager.emp_no "
+                            + "JOIN departments ON dept_manager.dept_no = departments.dept_no "
+                            + "JOIN dept_emp ON employees.emp_no = dept_emp.emp_no "
+                            + "WHERE departments.dept_no = (SELECT dept_emp.dept_no "
+                                    + "FROM dept_emp JOIN employees e on dept_emp.emp_no = e.emp_no "
+                                    + "WHERE dept_emp.emp_no = 255530)"
+                            + " AND dept_manager.to_date = '9999-01-01'";
+
+
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
+            ResultSet rset2 = stmt2.executeQuery(strSelect2);
             // Return new employee if valid.
             // Check one is returned
-            if (rset.next())
+            if (rset.next() && rset2.next())
             {
                 Employee emp = new Employee();
                 emp.emp_no = rset.getInt("emp_no");
@@ -119,10 +135,13 @@ public class App
                 emp.title = rset.getString("title");
                 emp.salary = rset.getInt("salary");
                 emp.dept_name = rset.getString("dept_name");
+                emp.manager = rset2.getString("first_name") + " " + rset2.getString("last_name");
                 return emp;
             }
             else
+            {
                 return null;
+            }
         }
         catch (Exception e)
         {
