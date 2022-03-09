@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import static com.napier.sem.ReportPrint.*;
 
 public class App
 {
@@ -13,7 +14,7 @@ public class App
         // Connect to database
         a.connect();
 
-        // Extract employee salary information
+        /* Extract employee salary information
         ArrayList<Employee> employees = a.getAllSalaries();
 
         // Test the size of the returned data - should be 240124
@@ -21,6 +22,13 @@ public class App
 
         // Display all the employees and their salaries
         a.printSalaries(employees);
+         */
+
+        // Get salaries by role
+        String role = "Engineer";
+        ArrayList<Employee> employeesByRole = a.getSalariesByRole(role);
+        // Print the employee details
+        printSalaries(employeesByRole);
 
         // Disconnect from database
         a.disconnect();
@@ -116,6 +124,7 @@ public class App
                             + "AND salaries.to_date = '9999-01-01'"
                             + "GROUP BY employees.emp_no, first_name, last_name, title, salaries.salary, departments.dept_name";
 
+            // get the manager of the employee
             String strSelect2 =
                     "SELECT first_name, last_name "
                             + "FROM employees JOIN dept_manager ON employees.emp_no = dept_manager.emp_no "
@@ -182,19 +191,44 @@ public class App
      */
     public ArrayList<Employee> getAllSalaries()
     {
-        try
-        {
-            // Create an SQL statement
-            Statement stmt = con.createStatement();
-            // Create string for the SQL statement
-            String salariesSelect =
-                    "SELECT e.emp_no, first_name, last_name, salary "
+        String salariesSelect = "SELECT e.emp_no, first_name, last_name, salary "
             + "FROM employees e JOIN salaries s ON e.emp_no = s.emp_no "
             + "WHERE s.to_date = '9999-01-01' "
             + "ORDER BY e.emp_no ASC";
+        ArrayList<Employee> employees = processQuery(salariesSelect);
+        return employees;
+    }
+
+    /**
+     * Returns a list of employees performing a specified role
+     * @param role  role to extract
+     * @return  an ArrayList of employees of a given role
+     */
+    public ArrayList<Employee> getSalariesByRole(String role) {
+        String salariesSelect = "SELECT employees.emp_no, first_name, last_name, salary " +
+                "  FROM employees JOIN salaries ON employees.emp_no = salaries.emp_no " +
+                "                 JOIN titles ON employees.emp_no = titles.emp_no " +
+                "WHERE salaries.to_date = '9999-01-01' " +
+                "  AND titles.to_date = '9999-01-01' " +
+                "  AND titles.title = '" + role + "'" +
+                " ORDER BY employees.emp_no ASC";
+        ArrayList<Employee> employees = processQuery(salariesSelect);
+        return employees;
+    }
+
+    /**
+     * Processes the query passed, returning a list of employee objects extracted
+     * @param query SQL statement to execute
+     * @return  ArrayList of employee objects created from extracted data
+     */
+    private ArrayList<Employee> processQuery(String query) {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
 
             // Execute SQL statement
-            ResultSet rset = stmt.executeQuery(salariesSelect);
+            ResultSet rset = stmt.executeQuery(query);
+
             // Extract employee information
             ArrayList<Employee> employees = new ArrayList<>();
             while(rset.next())
@@ -207,32 +241,11 @@ public class App
                 employees.add(emp);
             }
             return employees;
-
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get salary details");
             return null;
-        }
-    }
-
-    /**
-     * Prints a list of employees and their salaries
-     * @param employees The list of employees to print
-     */
-    public void printSalaries(ArrayList<Employee> employees)
-    {
-        // Print header
-        // String.format() puts the data into columns of specified sizes
-        System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
-        // Loop over all employees in the list
-        for(Employee emp : employees)
-        {
-            String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.emp_no, emp.first_name, emp.last_name,
-                    emp.salary);
-            System.out.println(emp_string);
-
         }
     }
 }
