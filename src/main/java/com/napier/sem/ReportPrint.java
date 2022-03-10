@@ -18,8 +18,8 @@ public class ReportPrint {
             // Loop over all employees in the list
             for(Employee emp : employees)
             {
-                String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.emp_no, emp.first_name, emp.last_name,
-                        emp.salary);
+                String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.getEmp_no(), emp.getFirst_name(), emp.getLast_name(),
+                        emp.getSalary());
                 System.out.println(emp_string);
 
             }
@@ -42,8 +42,8 @@ public class ReportPrint {
             writer.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
             for(Employee emp : employees)
             {
-                String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.emp_no, emp.first_name, emp.last_name,
-                        emp.salary);
+                String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.getEmp_no(), emp.getFirst_name(), emp.getLast_name(),
+                        emp.getSalary());
                 writer.println(emp_string);
 
             }
