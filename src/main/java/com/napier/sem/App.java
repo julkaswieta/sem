@@ -25,12 +25,12 @@ public class App
          */
 
         //#2 - Salary in a department
-        /*
+
         // Extract the salary data
         Department dept = a.getDepartment("Sales");
         ArrayList<Employee> deptEmployees = a.getSalariesByDepartment(dept);
         printSalaries(deptEmployees);
-         */
+
 
 
         // #4 - Salary of a given role
