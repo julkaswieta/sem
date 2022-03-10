@@ -22,6 +22,9 @@ public class ReportPrint {
                             + emp.getDeptName() + "\n"
                             + "Manager: " + emp.getManagerName() + "\n");
         }
+        else {
+            System.out.println("No employee to print");
+        }
     }
 
 
@@ -31,24 +34,27 @@ public class ReportPrint {
      */
     public static void printSalaries(ArrayList<Employee> employees)
     {
-        try {
+        if(employees == null) {
+            System.out.println("No employees");
+            return;
+        }
+        else {
             // Print header
             // String.format() puts the data into columns of specified sizes
             System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
             // Loop over all employees in the list
             for(Employee emp : employees)
             {
-                String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.getEmp_no(), emp.getFirst_name(), emp.getLast_name(),
-                        emp.getSalary());
-                System.out.println(emp_string);
-
+                if(emp == null) {
+                    continue;
+                }
+                else {
+                    String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.getEmp_no(), emp.getFirst_name(), emp.getLast_name(),
+                            emp.getSalary());
+                    System.out.println(emp_string);
+                }
             }
         }
-        catch (NullPointerException e) {
-            System.out.println("List to print is empty");
-            e.printStackTrace();
-        }
-
     }
 
     /**
