@@ -33,12 +33,12 @@ public class Employee
     /**
      * Employee's current department
      */
-    private String dept_name;
+    private Department dept;
 
     /**
      * Employee's manager
      */
-    private String manager;
+    private Employee manager;
 
     /**
      * Default empty constructor
@@ -126,26 +126,51 @@ public class Employee
     }
 
     /**
-     * Gets the department name the employee works in
-     * @return  department name
+     * Returns the Department object representing the dept of employee
+     * @return  Department object
      */
-    public String getDept_name() {
-        return dept_name;
+    public Department getDept() {
+        return dept;
     }
 
     /**
-     * Changes the employee's department name
-     * @param dept_name new department name to set
+     * Returns the department name the employee works in
+     * @return  department name
      */
-    public void setDept_name(String dept_name) {
-        this.dept_name = dept_name;
+    public String getDeptName() {
+        if (dept != null) {
+            return dept.getDept_name();
+        }
+        else {
+            return "No department";
+        }
+    }
+    /**
+     * Changes the employee's department name
+     * @param dept new department name to set
+     */
+    public void setDept(Department dept) {
+        this.dept = dept;
     }
 
     /**
      * Returns the employee's manager's name
      * @return  manager's name
      */
-    public String getManager() {
+    public String getManagerName() {
+        if (manager != null) {
+            return manager.getFirst_name() + " " + manager.getLast_name();
+        }
+        else {
+            return "No manager";
+        }
+    }
+
+    /**
+     * Returns the employee object representing the employee's manager
+     * @return  employee's manager
+     */
+    public Employee getManager() {
         return manager;
     }
 
@@ -153,7 +178,7 @@ public class Employee
      * Changes the employee's manager's name
      * @param manager   new manager's name to set
      */
-    public void setManager(String manager) {
+    public void setManager(Employee manager) {
         this.manager = manager;
     }
 }

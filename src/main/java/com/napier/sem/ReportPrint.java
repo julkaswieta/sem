@@ -6,6 +6,26 @@ import java.util.ArrayList;
 
 public class ReportPrint {
     /**
+     * Displays the selected employee's data to the console
+     * @param emp Employee object to display
+     */
+    public static void displayEmployee(Employee emp)
+    {
+        if (emp != null)
+        {
+            System.out.println(
+                    emp.getEmp_no() + " "
+                            + emp.getFirst_name() + " "
+                            + emp.getLast_name() + "\n"
+                            + emp.getTitle() + "\n"
+                            + "Salary:" + emp.getSalary() + "\n"
+                            + emp.getDeptName() + "\n"
+                            + "Manager: " + emp.getManagerName() + "\n");
+        }
+    }
+
+
+    /**
      * Prints a list of employees and their salaries
      * @param employees The list of employees to print
      */
