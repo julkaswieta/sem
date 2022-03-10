@@ -144,13 +144,13 @@ public class App
             if (rset.next() && rset2.next())
             {
                 Employee emp = new Employee();
-                emp.emp_no = rset.getInt("emp_no");
-                emp.first_name = rset.getString("first_name");
-                emp.last_name = rset.getString("last_name");
-                emp.title = rset.getString("title");
-                emp.salary = rset.getInt("salary");
-                emp.dept_name = rset.getString("dept_name");
-                emp.manager = rset2.getString("first_name") + " " + rset2.getString("last_name");
+                emp.setEmp_no(rset.getInt("emp_no"));
+                emp.setFirst_name(rset.getString("first_name"));
+                emp.setLast_name(rset.getString("last_name"));
+                emp.setTitle(rset.getString("title"));
+                emp.setSalary(rset.getInt("salary"));
+                emp.setDept_name(rset.getString("dept_name"));
+                emp.setManager(rset2.getString("first_name") + " " + rset2.getString("last_name"));
                 return emp;
             }
             else
@@ -175,13 +175,13 @@ public class App
         if (emp != null)
         {
             System.out.println(
-                    emp.emp_no + " "
-                            + emp.first_name + " "
-                            + emp.last_name + "\n"
-                            + emp.title + "\n"
-                            + "Salary:" + emp.salary + "\n"
-                            + emp.dept_name + "\n"
-                            + "Manager: " + emp.manager + "\n");
+                    emp.getEmp_no() + " "
+                            + emp.getFirst_name() + " "
+                            + emp.getLast_name() + "\n"
+                            + emp.getTitle() + "\n"
+                            + "Salary:" + emp.getSalary() + "\n"
+                            + emp.getDept_name() + "\n"
+                            + "Manager: " + emp.getManager() + "\n");
         }
     }
 
@@ -234,10 +234,10 @@ public class App
             while(rset.next())
             {
                 Employee emp = new Employee();
-                emp.emp_no = rset.getInt("emp_no");
-                emp.first_name = rset.getString("first_name");
-                emp.last_name = rset.getString("last_name");
-                emp.salary = rset.getInt("salary");
+                emp.setEmp_no(rset.getInt("emp_no"));
+                emp.setFirst_name(rset.getString("first_name"));
+                emp.setLast_name(rset.getString("last_name"));
+                emp.setSalary(rset.getInt("salary"));
                 employees.add(emp);
             }
             return employees;
