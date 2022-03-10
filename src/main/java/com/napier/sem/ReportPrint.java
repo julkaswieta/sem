@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class ReportPrint {
@@ -26,7 +27,6 @@ public class ReportPrint {
             System.out.println("No employee to print");
         }
     }
-
 
     /**
      * Prints a list of employees and their salaries
@@ -64,14 +64,13 @@ public class ReportPrint {
      */
     public static void printToMD(ArrayList<Employee> employees, String filename) {
         try {
-            PrintWriter writer = new PrintWriter(filename, "UTF-8");
+            PrintWriter writer = new PrintWriter(filename, StandardCharsets.UTF_8);
             writer.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
             for(Employee emp : employees)
             {
                 String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.getEmp_no(), emp.getFirst_name(), emp.getLast_name(),
                         emp.getSalary());
                 writer.println(emp_string);
-
             }
             writer.close();
             System.out.println("Successfully wrote to the file.");

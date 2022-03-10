@@ -20,6 +20,7 @@ public class AppTest
         emp.setTitle("Engineer");
         emp.setSalary(55000);
     }
+
     @Test
     void printSalariesTestNull()
     {

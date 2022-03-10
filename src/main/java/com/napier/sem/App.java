@@ -31,8 +31,6 @@ public class App
         ArrayList<Employee> deptEmployees = a.getSalariesByDepartment(dept);
         printSalaries(deptEmployees);
 
-
-
         // #4 - Salary of a given role
         /*
         // Get salaries by role
@@ -157,7 +155,6 @@ public class App
                                     + "WHERE dept_emp.emp_no = " + ID + ") "
                             + " AND dept_manager.to_date = '9999-01-01'";
 
-
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             ResultSet rset2 = stmt2.executeQuery(strSelect2);
@@ -207,7 +204,6 @@ public class App
                     "  AND s.to_date = '9999-01-01' " +
                     "GROUP BY e.emp_no, first_name, last_name, title, s.salary, d.dept_name";
 
-
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // get the manager of the employee
@@ -222,6 +218,7 @@ public class App
                     "    AND e.last_name = '" + lname + "'" +
                     "    AND t.to_date = '9999-01-01') " +
                     "  AND dept_manager.to_date = '9999-01-01'";
+
             ResultSet rset2 = stmt2.executeQuery(strSelect2);
             // Return new employee if valid.
             // Check one is returned
@@ -406,6 +403,5 @@ public class App
             System.out.println("Failed to get employee data");
             return null;
         }
-
     }
 }
