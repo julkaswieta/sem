@@ -63,24 +63,33 @@ public class ReportPrint {
      * @param filename  filename to print to
      */
     public static void printToMD(ArrayList<Employee> employees, String filename) {
-        try {
-            PrintWriter writer = new PrintWriter(filename, StandardCharsets.UTF_8);
-            writer.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
-            for(Employee emp : employees)
-            {
-                String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.getEmp_no(), emp.getFirst_name(), emp.getLast_name(),
-                        emp.getSalary());
-                writer.println(emp_string);
+        if(employees == null) {
+            System.out.println("No employees to print");
+            return;
+        }
+        else {
+            try {
+                PrintWriter writer = new PrintWriter(filename, StandardCharsets.UTF_8);
+                writer.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
+                for(Employee emp : employees)
+                {
+                    if(emp == null) {
+                        continue;
+                    }
+                    else {
+                        String emp_string = String.format("%-10s %-15s %-20s %-8s", emp.getEmp_no(),
+                                emp.getFirst_name(), emp.getLast_name(), emp.getSalary());
+                        writer.println(emp_string);
+                    }
+                }
+                writer.close();
+                System.out.println("Successfully wrote to the file.");
             }
-            writer.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
         }
-        catch (NullPointerException e){
-            System.out.println("List to print is empty");
-            e.printStackTrace();
-        }
+
     }
 }

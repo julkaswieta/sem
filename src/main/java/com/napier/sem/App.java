@@ -1,5 +1,7 @@
 package com.napier.sem;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import static com.napier.sem.ReportPrint.*;
@@ -12,7 +14,11 @@ public class App
         App a = new App();
 
         // Connect to database
-        a.connect();
+        if(args.length < 1){
+            a.connect("localhost:33060", 0);
+        }else{
+            a.connect("db:3306", 30000);
+        }
 
         // #1 - Salary of all employees
         /*
@@ -25,11 +31,12 @@ public class App
          */
 
         //#2 - Salary in a department
-
+        /*
         // Extract the salary data
         Department dept = a.getDepartment("Sales");
         ArrayList<Employee> deptEmployees = a.getSalariesByDepartment(dept);
         printSalaries(deptEmployees);
+         */
 
         // #4 - Salary of a given role
         /*
@@ -42,10 +49,10 @@ public class App
 
         // #6 - View an employee's details
         // search by ID
-        /*
         Employee emp = a.getEmployeeByID(255530);
         displayEmployee(emp);
         // search by name
+        /*
         Employee emp = a.getEmployeeByName("Bedir", "Perry");
         displayEmployee(emp);
          */
@@ -62,39 +69,31 @@ public class App
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
-    {
-        try
-        {
+    public void connect(String location, int delay) {
+        try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             System.out.println("Could not load SQL driver");
             System.exit(-1);
         }
 
         int retries = 10;
-        for (int i = 0; i < retries; ++i)
-        {
+        for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
-            try
-            {
+            try {
                 // Wait a bit for db to start
-                Thread.sleep(30000);
+                Thread.sleep(delay);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/employees?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://" + location
+                                + "/employees?allowPublicKeyRetrieval=true&useSSL=false",
+                        "root", "example");
                 System.out.println("Successfully connected");
                 break;
-            }
-            catch (SQLException sqle)
-            {
-                System.out.println("Failed to connect to database attempt " + i);
+            } catch (SQLException sqle) {
+                System.out.println("Failed to connect to database attempt " +                                  Integer.toString(i));
                 System.out.println(sqle.getMessage());
-            }
-            catch (InterruptedException ie)
-            {
+            } catch (InterruptedException ie) {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
