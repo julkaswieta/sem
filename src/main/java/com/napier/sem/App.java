@@ -39,13 +39,14 @@ public class App
          */
 
         // #4 - Salary of a given role
-        /*
+
         // Get salaries by role
         String role = "Engineer";
         ArrayList<Employee> employeesByRole = a.getSalariesByRole(role);
         // Print the employee details
-        printSalaries(employeesByRole);
-        */
+        //printSalaries(employeesByRole);
+        printToMD(employeesByRole, "roles.md");
+
 
         // #6 - View an employee's details
         // search by ID
