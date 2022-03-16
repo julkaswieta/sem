@@ -8,3 +8,7 @@ still not sure what's happening
 * License  [![LICENSE](https://img.shields.io/github/license/julkaswieta/sem.svg?style=flat-square)](https://github.com/julkaswieta/sem/blob/master/LICENSE)
 
 * Release [![Releases](https://img.shields.io/github/release/julkaswieta/sem/all.svg?style=flat-square)](https://github.com/julkaswieta/sem/releases)
+
+* Codecov Master [![codecov](https://codecov.io/gh/julkaswieta/sem/branch/master/graph/badge.svg?token=VOA8QLLBQG)](https://codecov.io/gh/julkaswieta/sem)
+
+* Codecov Develop [![codecov](https://codecov.io/gh/julkaswieta/sem/branch/develop/graph/badge.svg?token=VOA8QLLBQG)](https://codecov.io/gh/julkaswieta/sem)
