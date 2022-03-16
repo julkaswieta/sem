@@ -73,4 +73,18 @@ public class AppIntegrationTest
         assertTrue(employees.isEmpty());
     }
 
+    @Test
+    void testAddEmployee()
+    {
+        Employee emp = new Employee();
+        emp.setEmp_no(500003);
+        emp.setFirst_name("Kevin");
+        emp.setLast_name("Chalmers");
+        app.addEmployee(emp);
+        emp = app.getEmployee(500003);
+        assertEquals(emp.getEmp_no(), 500003);
+        assertEquals(emp.getFirst_name(), "Kevin");
+        assertEquals(emp.getLast_name(), "Chalmers");
+    }
+
 }
