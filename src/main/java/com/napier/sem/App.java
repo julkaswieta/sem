@@ -44,8 +44,8 @@ public class App
         String role = "Engineer";
         ArrayList<Employee> employeesByRole = a.getSalariesByRole(role);
         // Print the employee details
-        //printSalaries(employeesByRole);
-        printToMD(employeesByRole, "roles.md");
+        printSalaries(employeesByRole);
+        //printToMD(employeesByRole, "roles.md");
 
 
         // #6 - View an employee's details
@@ -57,6 +57,13 @@ public class App
         Employee emp = a.getEmployeeByName("Bedir", "Perry");
         displayEmployee(emp);
          */
+
+        // #5 Add employee
+        Employee emp = new Employee();
+        emp.setFirst_name("Julia");
+        emp.setLast_name("Swietochowska");
+        emp.setEmp_no(3000000);
+        a.addEmployee(emp);
 
         // Disconnect from database
         a.disconnect();
@@ -415,6 +422,7 @@ public class App
                             "VALUES ('" + emp.getEmp_no() + "', '" + emp.getFirst_name() + "', '" + emp.getLast_name() + "', " +
                             "'9999-01-01', 'M', '9999-01-01')";
             stmt.execute(strUpdate);
+            System.out.println("Added employee");
         }
         catch (Exception e)
         {
