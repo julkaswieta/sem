@@ -60,11 +60,12 @@ public class App
          */
 
         // #5 Add employee
-        Employee emp = new Employee();
+        /*Employee emp = new Employee();
         emp.setFirst_name("Julia");
         emp.setLast_name("Swietochowska");
         emp.setEmp_no(3000000);
         a.addEmployee(emp);
+         */
 
         // Disconnect from database
         a.disconnect();
@@ -269,13 +270,18 @@ public class App
      * @return  an ArrayList of employees of a given role
      */
     public ArrayList<Employee> getSalariesByRole(String role) {
-        String salariesSelect = "SELECT employees.emp_no, first_name, last_name, salary " +
-                "  FROM employees JOIN salaries ON employees.emp_no = salaries.emp_no " +
-                "                 JOIN titles ON employees.emp_no = titles.emp_no " +
-                "WHERE salaries.to_date = '9999-01-01' " +
-                "  AND titles.to_date = '9999-01-01' " +
-                "  AND titles.title = '" + role + "'" +
-                " ORDER BY employees.emp_no ASC";
+        String salariesSelect = "SELECT employees.emp_no, first_name, last_name, title, salary, departments.dept_name, dm.emp_no " +
+                "    FROM employees JOIN salaries ON employees.emp_no = salaries.emp_no " +
+                "        JOIN titles ON employees.emp_no = titles.emp_no " +
+                "        JOIN dept_emp de on employees.emp_no = de.emp_no " +
+                "        JOIN departments ON departments.dept_no = de.dept_no " +
+                "        JOIN dept_manager dm on dm.dept_no = de.dept_no " +
+                "            WHERE salaries.to_date = '9999-01-01' " +
+                "                AND titles.to_date = '9999-01-01' " +
+                "                AND de.to_date = '9999-01-01' " +
+                "                AND dm.to_date = '9999-01-01' " +
+                "                AND title = '" + role + "' " +
+                "                ORDER BY employees.emp_no ASC";
         ArrayList<Employee> employees = processSalaryQuery(salariesSelect);
         return employees;
     }
@@ -361,6 +367,9 @@ public class App
                 emp.setFirst_name(rset.getString("first_name"));
                 emp.setLast_name(rset.getString("last_name"));
                 emp.setSalary(rset.getInt("salary"));
+                emp.setTitle(rset.getString("title"));
+                emp.setDeptName(rset.getString("dept_name"));
+                emp.setManagerID(rset.getInt("dm.emp_no"));
                 employees.add(emp);
             }
             return employees;

@@ -35,10 +35,14 @@ public class Employee
      */
     private Department dept;
 
+    private String dept_name;
+
     /**
      * Employee's manager
      */
     private Employee manager;
+
+    private int managerID;
 
     /**
      * Default empty constructor
@@ -138,12 +142,11 @@ public class Employee
      * @return  department name
      */
     public String getDeptName() {
-        if (dept != null) {
-            return dept.getDept_name();
-        }
-        else {
-            return "No department";
-        }
+        return dept_name;
+    }
+
+    public void setDeptName(String dept_name) {
+        this.dept_name = dept_name;
     }
     /**
      * Changes the employee's department name
@@ -181,5 +184,14 @@ public class Employee
     public void setManager(Employee manager) {
         this.manager = manager;
     }
+
+    public int getManagerID() {
+     return managerID;
+    }
+
+    public void setManagerID(int id) {
+        managerID = id;
+    }
+
 }
 

@@ -113,7 +113,7 @@ public class ReportPrint {
             sb.append("| " + emp.getEmp_no() + " | " +
                     emp.getFirst_name() + " | " + emp.getLast_name() + " | " +
                     emp.getTitle() + " | " + emp.getSalary() + " | "
-                    + emp.getDeptName() + " | " + emp.getManagerName() + " |\r\n");
+                    + emp.getDeptName() + " | " + emp.getManagerID() + " |\r\n");
         }
         try {
             new File("./reports/").mkdir();
