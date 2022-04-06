@@ -44,7 +44,7 @@ public class App
         String role = "Engineer";
         ArrayList<Employee> employeesByRole = a.getSalariesByRole(role);
         // Print the employee details
-        printSalaries(employeesByRole);
+        //printSalaries(employeesByRole);
         outputEmployees(employeesByRole, "managerSalaries.md");
         //printToMD(employeesByRole, "roles.md");
 
