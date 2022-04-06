@@ -1,7 +1,6 @@
 package com.napier.sem;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
@@ -91,5 +90,38 @@ public class ReportPrint {
             }
         }
 
+    }
+
+    /**
+     * Outputs to Markdown
+     * @param employees
+     */
+    public static void outputEmployees(ArrayList<Employee> employees, String filename) {
+        // Check employees is not null
+        if (employees == null) {
+            System.out.println("No employees");
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        // Print header
+        sb.append("| Emp No | First Name | Last Name | Title | Salary | Department | Manager |\r\n");
+        sb.append("| --- | --- | --- | --- | --- | --- | --- |\r\n");
+        // Loop over all employees in the list
+        for (Employee emp : employees) {
+            if (emp == null) continue;
+            sb.append("| " + emp.getEmp_no() + " | " +
+                    emp.getFirst_name() + " | " + emp.getLast_name() + " | " +
+                    emp.getTitle() + " | " + emp.getSalary() + " | "
+                    + emp.getDeptName() + " | " + emp.getManagerName() + " |\r\n");
+        }
+        try {
+            new File("./reports/").mkdir();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(new File("./reports/" + filename)));
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
